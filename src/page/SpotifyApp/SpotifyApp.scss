@@ -1,0 +1,12 @@
+.spotifyapp{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    // overflow: auto;
+
+    &__body{
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+    }
+}

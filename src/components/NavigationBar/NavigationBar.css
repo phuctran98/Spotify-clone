@@ -1,0 +1,10 @@
+.NavigationBar{
+    width: 100%;
+    background-color: black;
+    color: white;
+    opacity: 0.75;
+
+    /* fix nnavbar in the top */
+    /* position: fixed; */
+    /* top: 0; */
+}

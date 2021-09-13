@@ -1,0 +1,38 @@
+.header {
+    display: flex;
+    // position: relative;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    &__left {
+        display: flex;
+        flex: 0 0 300px;
+        //flex-grow flex-shrink flex-basis
+        background-color: white;
+        padding: 6px 12px 6px 12px;
+        
+            
+        border-radius: 30px;
+        color: gray;
+        align-items: center;
+
+        .sreachInput {
+            margin-left: 5px;
+            outline: none;
+            border: none;
+            // max-width: 364px;
+            width: 100%;
+        }
+    }
+    &__right {
+        display: flex;
+        flex: 0 0 180px;
+        height: 32px;
+        border-radius: 23px;
+        color: white;
+        align-items: center;
+        background-color: rgba(0,0,0,.7);
+        padding: 2px;
+
+    }
+   
+}

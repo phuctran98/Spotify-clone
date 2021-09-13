@@ -1,0 +1,16 @@
+.sidebarOption {
+    display: flex;
+    flex-direction: row;
+    color: #b3b3b3;
+    cursor: pointer;
+    align-items: center;
+    transition: 200ms color ease-in;
+    margin-bottom: 1rem;
+    &__icon {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+.sidebarOption:hover {
+    color: white;
+}

@@ -1,0 +1,22 @@
+.webapp {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    background: black;
+    min-height: 100vh;
+    img {
+        height: 200px;
+        margin-top: 10%;
+        transform: translate(-50% 0);
+    }
+    &__button {
+        margin-top: 8rem;
+        color: white;
+        padding: 20px;
+        border-radius: 99px;
+        font-weight: 800;
+        background-color: #1db954;
+        border: none;
+    }
+}

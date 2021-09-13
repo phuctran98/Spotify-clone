@@ -1,0 +1,38 @@
+.rowSong {
+    margin-left: 20px;
+    padding: 18px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    z-index: 100;
+    color: white;
+    &__album {
+        height: 40px;
+        width: 40px;
+    }
+    &__info {
+        margin-left: 20px;
+
+        h1 {
+            font-size: 16px;
+        }
+        p {
+            font-size: 14px;
+            margin-top: 3px;
+            color: gray;
+        }
+    }
+}
+.SongRow:hover {
+    cursor: pointer;
+    background-color: black;
+    opacity: 0.8;
+}
+.rowSong:hover{
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #727272;
+    p{
+        color: white;
+    }
+}

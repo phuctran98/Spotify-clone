@@ -1,0 +1,83 @@
+.signup {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    &__image {
+        background: url("../../assets/images/1.jpg") no-repeat;
+        background-position: center;
+        background-size: cover;
+        object-fit: contain;
+        width: 100%;
+        min-height: 100vh;
+        // opacity: 0.8;
+        display: flex;
+        flex-wrap: wrap;
+        z-index: 1;
+    }
+    &__form {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        color: white;
+        display: flex;
+        width: 28rem;
+        height: 34rem;
+
+        flex-direction: column;
+        align-items: center;
+
+        &__header {
+            font-size: 3rem;
+            margin-top: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        input {
+            outline: none;
+            // display: none;
+            // visibility:hidden; 
+            color: white;
+            font-size: 15px;
+            font-weight: 400;
+            margin: 1.5rem 0;
+            width: 70%;
+            padding: 5px 13px 15px 44px;
+            border: none;
+            // opacity: 0.1;
+
+            border-bottom: 1px solid #fff;
+        }
+        &__email {
+            background: url('../../assets/images/m.png') no-repeat;
+        }
+        &__password {
+            background: url('../../assets/images/p.png') no-repeat;
+        }
+        &__signup{
+            color: white;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+        &__signup:hover{
+            color: #42D45D;
+        }
+        button {
+            margin: 1.5rem 0;
+            background: #1DB954;
+            color: #fff;
+            font-size: 26px;
+            padding: 0.3em 1.2em;
+            width: 70%;
+            font-weight: 500;
+            transition: 0.5s all;
+           
+            display: inline-block;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            border-radius: 3px;
+            font-family: "Roboto Condensed", sans-serif;
+        }
+    }
+}
