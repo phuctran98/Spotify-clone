@@ -16,15 +16,20 @@ const SONG_OF_PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/playlists";
 
 function SpotifyApp(props) {
     const [currentSong,setCurrentSong] = useState('')
-    const [songOfPlayList,setSongOfPlayList] = useState({})
-    const [isPlaying,setIsPlaying] = useState(false)
+    const [songsOfPlayList,setSongsOfPlayList] = useState({})
     const [idPlayList,setIdPlayList] = useState('')
+    const [indexOfSong,setIndexOfSong] = useState(0)
+
+    const [isPlaying,setIsPlaying] = useState(true)
+    const [duration,setDuration] = useState(0)
+    const [currentTime,setCurrentTime] = useState(0)
     const audioRef = useRef()
 
     const dispatch = useDispatch()
     const [token,setToken] = useState("")
     const url = window.location.hash
     const {access_token,expires_in,token_type} = useGetParams(url)
+    // console.log("listsong",songsOfPlayList)
     useEffect(()=>{
         if(url){
             // const {object} = getReturnedParamsFromSpotifyAuth(window.location.hash)
@@ -69,8 +74,8 @@ function SpotifyApp(props) {
                         "Authorization": "Bearer " + token,
                     }
                 }).then(response=>{
-                    setSongOfPlayList(response.data)
-                    // console.log("respondata:",songOfPlayList)
+                    setSongsOfPlayList(response.data)
+                    // console.log("respondata:",songsOfPlayList)
                 }).catch(err=>{
                     console.log(err)
                 })
@@ -81,30 +86,67 @@ function SpotifyApp(props) {
     useEffect(()=>{
         if(currentSong){
             if(isPlaying){
-                audioRef.current.play()
+                audioRef?.current.play()
             }
             else{
-                audioRef.current.pause();
+                audioRef?.current.pause();
             }
-        }
-    },[currentSong])
+        } 
+    })
     // choice song to play
     function choiceSong(newItem){
-        setCurrentSong(newItem.track.preview_url)
-        console.log("newItem:",newItem.track)
+        setCurrentSong(newItem.track)
+        setIndexOfSong(indexSong(newItem.track.id))
+        // console.log("indexSong",indexSong(newItem.track.id))
+        console.log("choie song to play:",currentSong)
     }
     //change id playlist
     function changePlayList(id){
         setIdPlayList(id)
     }
+
+    //check index of song 
+    const indexSong = (id) =>{
+        const listofSong = songsOfPlayList.tracks.items
+        const index = listofSong.findIndex((item)=>item.track.id  === id)
+        return index
+    }
+    //skip song 
+    const skipSong = (foward = true) =>{
+        const nextSong = songsOfPlayList?.tracks
+        if(foward){
+            if(indexOfSong===nextSong.items.length-1){
+                setIndexOfSong(0)
+                setCurrentSong(nextSong.items[indexOfSong].track)
+            }
+            else{
+                setIndexOfSong(indexOfSong+1)
+                setCurrentSong(nextSong.items[indexOfSong].track)
+                
+            }
+            // console.log("nextSOng",songsOfPlayList?.tracks.items[indexOfSong+1])
+            // console.log("currentSOng",currentSong)
+        }
+        else{
+            if(indexOfSong===0){
+                setIndexOfSong(nextSong.items.length-1)
+                setCurrentSong(nextSong.items[indexOfSong].track)
+            }
+            else{
+                setIndexOfSong(indexOfSong-1)
+                setCurrentSong(nextSong.items[indexOfSong].track)
+                
+            }
+        }
+    }
     return (
         <div className="spotifyapp">
-            <audio src={currentSong} ref={audioRef}></audio>
+            <audio src={currentSong?.preview_url} ref={audioRef}></audio>
             <div className="spotifyapp__body">
                 <SideBar changePlayList={changePlayList}></SideBar>
-                <Body songOfPlayList={songOfPlayList} choiceSong={choiceSong}></Body>
+                <Body songsOfPlayList={songsOfPlayList} choiceSong={choiceSong} > </Body>
             </div>
-            <Footer></Footer>
+            <Footer isPlaying={isPlaying} setIsPlaying={setIsPlaying} duration={duration} currentTime={currentTime} currentSong={currentSong} skipSong={skipSong}></Footer>
         </div>
     );
 }

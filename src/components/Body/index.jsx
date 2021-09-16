@@ -10,28 +10,7 @@ import RowSong from '../SongRow';
 
 // const PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/playlists/1punMWqcnG6MgyVRs3k7iN";
 function Body(props) {
-    const {songOfPlayList,choiceSong} = props
-    // const [data,setData] = useState({})
-    // const [token,setToken] = useState("")
-    // useEffect(()=>{
-    //     if(localStorage.getItem('accessToken')){
-    //         setToken(localStorage.getItem('accessToken'))
-    //     }
-    //     if(token){
-    //         axios.get(PLAYLISTS_ENDPOINT,{
-    //             headers: {
-    //                 "Authorization": "Bearer " + token,
-    //               }
-    //         }).then(response=>{
-    //             setData(response.data)
-
-    //             console.log("alnuln",response.data)
-    //         }).catch(err=>{
-    //             console.log(err)
-    //         })
-    //     }
-    // },[token])
-    
+    const {songsOfPlayList,choiceSong} = props
     return (
         <div className="body">
             <Header />
@@ -56,7 +35,7 @@ function Body(props) {
                 <div>
                 {
                     // console.log("helo",data.tracks.items)
-                    songOfPlayList?.tracks?.items.map((item)=>(
+                    songsOfPlayList?.tracks?.items.map((item)=>(
                         <RowSong item={item} choiceSong={choiceSong} key={item.track.id}>
 
                         </RowSong>
