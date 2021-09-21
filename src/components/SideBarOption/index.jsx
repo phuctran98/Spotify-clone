@@ -1,10 +1,5 @@
 import React from 'react';
 import "./SideBarOption.scss"
-import PropTypes from 'prop-types';
-
-SideBarOption.propTypes = {
-    
-};
 
 function SideBarOption(props) {
     const {Icon,option="text"} = props

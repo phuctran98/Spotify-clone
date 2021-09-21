@@ -3,11 +3,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import { Avatar } from "@material-ui/core";
 import "./Header.scss"
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
-Header.propTypes = {
+// Header.propTypes = {
 
-};
+// };
 const useStyles = makeStyles((theme) => ({
     avatar: {
       width: theme.spacing(4),

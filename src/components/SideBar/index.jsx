@@ -1,15 +1,10 @@
-import React, { useState,useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import "./SideBar.scss"
 import SideBarOption from '../SideBarOption';
 import HomeIcon from '@material-ui/icons/Home';
 import SearchIcon from '@material-ui/icons/Search';
 import LibraryMusicIcon from "@material-ui/icons/LibraryMusic";
-import { useDispatch ,useSelector} from 'react-redux';
-import {playListLoading} from '../../page/SpotifyApp/userPlaylistSlice'
-SideBar.propTypes = {
-
-};
+import { useSelector} from 'react-redux';
 
 
 function SideBar(props) {

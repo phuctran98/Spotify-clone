@@ -1,17 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import './NavigationBar.css'
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
     Link
 } from "react-router-dom";
 import { useAuth } from '../../Context/AuthContext';
 
-NavigationBar.propTypes = {
 
-};
 
 function NavigationBar(props) {
     const auth = useAuth()
@@ -20,7 +16,7 @@ function NavigationBar(props) {
             <nav>
                 <ul>
                     <div className="spotify-logo">
-                        <img src="/images/spotify-logo.png"></img>
+                        <img src="/images/spotify-logo.png" alt='img'></img>
                     </div>
                     <Link to='/'><li>Home</li></Link>
                     {auth.user ? 

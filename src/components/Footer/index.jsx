@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import './Footer.scss'
 
 import ShuffleIcon from '@material-ui/icons/Shuffle';
@@ -11,9 +11,9 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import VolumeOffIcon from '@material-ui/icons/VolumeOff';
-Footer.propTypes = {
+// Footer.propTypes = {
 
-};
+// };
 
 function Footer(props) {
     const { isPlaying, setIsPlaying,duration,currentTime,currentSong,
@@ -31,7 +31,7 @@ function Footer(props) {
     return (
         <div className="footer">
             <div className="footer__left">
-                <img className="footer__left__albumLogo"
+                <img className="footer__left__albumLogo" alt='image_song'
                     src={currentSong ? currentSong.album.images[2].url : 'https://i.scdn.co/image/ab67616d000048512f76b797c382bedcafdf45e1'}
                 />
                 <div className="footer__left__songInfo">
