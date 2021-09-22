@@ -20,7 +20,7 @@ function Footer(props) {
         skipSong,progressBar,progressBarVolume,changeRange,changeRangeVolum,
         audioMuted, setAudioMuted
     } = props
-    // console.log("song footer",currentSong)
+    // console.log("duration footer",duration)
     const calculateTime = (secs) => {
         const minutes = Math.floor(secs/60)
         const returnMinutes = minutes < 10 ? `${minutes}` : minutes 

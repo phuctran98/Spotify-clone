@@ -8,7 +8,6 @@ import {
 import { useAuth } from '../../Context/AuthContext';
 
 
-
 function NavigationBar(props) {
     const auth = useAuth()
     return (

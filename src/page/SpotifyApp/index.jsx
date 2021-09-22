@@ -34,8 +34,8 @@ function SpotifyApp(props) {
 
     const url = window.location.hash
     const {access_token,expires_in,token_type} = useGetParams(url)
-    // console.log("indexOfSong",indexOfSong)
-    // console.log("currentsong",currentSong)
+    // console.log("currentSong",currentSong)
+    // console.log("idPlayList",idPlayList)
     useEffect(()=>{
         function handleToken(){
             if(url){
@@ -68,7 +68,7 @@ function SpotifyApp(props) {
     },[token,dispatch])
     //get song of playlist
     useEffect(()=>{
-        if(idPlayList!=null){
+        if(idPlayList){
             if(localStorage.getItem('accessToken')){
                 setToken(localStorage.getItem('accessToken'))
             }
@@ -91,6 +91,8 @@ function SpotifyApp(props) {
         if(currentSong){
             if(isPlaying){
                 audioRef?.current.play()
+                
+                // console.log('1',audioRef.current)
                 audioRef.current.volume = 0.5
                 animationRef.current = requestAnimationFrame(whilePlaying)
             }
@@ -103,16 +105,16 @@ function SpotifyApp(props) {
     //auto next song
     useEffect(() => {
         // console.log('what song',songsOfPlayList)
-            audioRef.current.addEventListener('ended', () => {
-                setIsPlaying(false)
-                console.log('songsOfPlayList',songsOfPlayList.tracks)
-                // audioRef.current.pause()
-                // console.log('what song',songsOfPlayList)
-                // setCurrentSong(songsOfPlayList?.tracks?.items[indexOfSong+1].track)
-                // audioRef.current.load()
-                // setIsPlaying(true)
-                // audioRef.current.play()
-            });
+        // audioRef.current.addEventListener('ended', () => {
+        //         setIsPlaying(false)
+        //         console.log('songsOfPlayList',songsOfPlayList.tracks)
+        //         // audioRef.current.pause()
+        //         // console.log('what song',songsOfPlayList)
+        //         // setCurrentSong(songsOfPlayList?.tracks?.items[indexOfSong+1].track)
+        //         // audioRef.current.load()
+        //         // setIsPlaying(true)
+        //         // audioRef.current.play()
+        // });
             // if(audioRef.current.onended ){
 
             // }
@@ -180,12 +182,13 @@ function SpotifyApp(props) {
 
         animationRef.current=requestAnimationFrame( whilePlaying)
     }
+    //set duration
     useEffect(()=>{
-        const seconds = Math.floor(audioRef.current.duration) 
-        setDuration(seconds)
-
+        const seconds =  Math.floor(audioRef.current.duration) 
+        // console.log('seconds',seconds)
+        setDuration(seconds)     
         progressBar.current.max = seconds
-    },[])
+    },[audioRef?.current?.loadedmetadata, audioRef?.current?.readyState])
     const changeRange = ()=>{
         audioRef.current.currentTime = progressBar.current.value
         // progressBar.current.style.setProperty('--seek-before-width',`${progressBar.current.value/duration*100}%`)
