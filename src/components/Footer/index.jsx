@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import './Footer.scss'
 
@@ -28,6 +28,16 @@ function Footer(props) {
         const returnSeconds = seconds < 10 ? `0${seconds}` : seconds 
         return `${returnMinutes}:${returnSeconds}`;
     }
+
+    // useEffect(() =>{
+    //     const id = setInterval(()=>{
+    //         console.log('value',progressBar?.current?.value)
+    //     },1000)
+    //     return () =>{
+    //         clearInterval(id)
+    //     }
+    // },[])
+    
     return (
         <div className="footer">
             <div className="footer__left">
@@ -51,7 +61,6 @@ function Footer(props) {
                     </div>
                     <div onClick={() => setIsPlaying(!isPlaying)} className="footer__icon" >
                         {isPlaying ? <PauseCircleOutlineIcon fontSize="large"/> : <PlayCircleOutlineIcon fontSize="large" />}
-                        
                     </div>
                     <div className="footer__center__button__right">
                         <div className="footer__icon" onClick={()=>skipSong()}>
@@ -64,7 +73,7 @@ function Footer(props) {
                 </div>
                 <div className="footer__center__playbackBar">
                     <div className="time">{currentTime ? calculateTime(currentTime) : "0:00"}</div>
-                    <input type="range" className="footer__center__playbackBar__progressBar" ref={progressBar} onChange={changeRange}></input>
+                    <input type="range" className="footer__center__playbackBar__progressBar" ref={progressBar} value={0} onChange={changeRange}></input>
                     <div className="time">{duration ? calculateTime(duration) : "0:00"}</div>
                 </div>
             </div>

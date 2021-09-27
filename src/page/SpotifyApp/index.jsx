@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import "./SpotifyApp.scss"
-
+import styles from '../../components/Footer/Footer.scss'
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import SideBar from '../../components/SideBar';
@@ -8,6 +8,7 @@ import Body from '../../components/Body';
 import Footer from '../../components/Footer';
 import useGetParams from '../../Hooks/useGetParams';
 import { playListLoading } from './userPlaylistSlice';
+
 
 const LIST_PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
 const SONG_OF_PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/playlists";
@@ -178,28 +179,35 @@ function SpotifyApp(props) {
     }
     const whilePlaying = () => {
         progressBar.current.value = audioRef.current.currentTime
-        setCurrentTime(progressBar.current.value)
+        changeProgressBarCurrentTime()
 
         animationRef.current=requestAnimationFrame( whilePlaying)
     }
     //set duration
+    const changeProgressBarCurrentTime = () =>{
+        progressBar.current.style.setProperty('--seek-before-width',`${progressBar.current.value / duration * 100 }%`)
+        setCurrentTime(progressBar.current.value)
+    }
+    
     useEffect(()=>{
         const seconds =  Math.floor(audioRef.current.duration) 
-        // console.log('seconds',seconds)
         setDuration(seconds)     
         progressBar.current.max = seconds
     },[audioRef?.current?.loadedmetadata, audioRef?.current?.readyState])
+
     const changeRange = ()=>{
         audioRef.current.currentTime = progressBar.current.value
-        // progressBar.current.style.setProperty('--seek-before-width',`${progressBar.current.value/duration*100}%`)
-        setCurrentTime(progressBar.current.value)
+        changeProgressBarCurrentTime()
     }
+
     const changeRangeVolum = () =>{
         audioRef.current.volume = progressBarVolume?.current.value
     }
+
     useEffect(()=>{
         audioRef.current.muted = audioMuted
     },[audioMuted])
+
     return (
         <div className="spotifyapp">
             <audio src={currentSong?.preview_url} ref={audioRef}></audio>
@@ -207,7 +215,7 @@ function SpotifyApp(props) {
                 <SideBar changePlayList={changePlayList}></SideBar>
                 <Body songsOfPlayList={songsOfPlayList} choiceSong={choiceSong} > </Body>
             </div>
-            <Footer isPlaying={isPlaying} setIsPlaying={setIsPlaying} duration={duration} 
+            <Footer isPlaying={isPlaying} setIsPlaying={setIsPlaying} duration={duration}  className={styles.footer}
                     currentTime={currentTime} currentSong={currentSong} 
                     skipSong={skipSong} progressBar={progressBar} progressBarVolume={progressBarVolume} changeRange={changeRange}
                     changeRangeVolum = {changeRangeVolum} audioMuted={audioMuted} setAudioMuted={setAudioMuted}
