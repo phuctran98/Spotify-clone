@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import SpotifygetPlayList from './components/SpotifyGetPlayList';
 import './WebApp.scss'
-WebApp.propTypes = {
-    
-};
+
 const CLIENT_ID = "5e1dec94c0734988b3a1413d8fbd687b"
 const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize"
 const REDIRECT_URL_AFTER_LOGIN = "http://localhost:3000/spotify"
@@ -44,7 +40,7 @@ function WebApp(props) {
     }
     return (
         <div className="webapp">
-            <img src="/images/spotify-logo1.png" />
+            <img src="/images/spotify-logo1.png" alt='logo'/>
            
             <button onClick={handleLogin} className="webapp__button">Login to spotify</button>
             {/* <SpotifygetPlayList/> */}

@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { Button } from '@material-ui/core';
+import React from 'react';
+
 import { useState } from 'react';
 import "./SignUpForm.scss"
 // import { FirebaseContext } from '../../Context/FirebaseContext';
 import { useAuth } from '../../Context/AuthContext';
-import WebApp from '../../page/WebApp';
+
 import {useHistory} from "react-router-dom"
 
 

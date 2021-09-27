@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './Body.scss'
-import axios from 'axios';
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
@@ -15,7 +14,7 @@ function Body(props) {
         <div className="body">
             <Header />
             <div className="body__info">
-                <img src="https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb7efbaff198348e273fa1330b/2/en/large"></img>
+                <img src="https://dailymix-images.scdn.co/v2/img/ab6761610000e5eb7efbaff198348e273fa1330b/2/en/large" alt='PLAYLIST'></img>
                 <div className="body__infoText">
                     <p>PLAYLIST</p>
                     <h2>Discover Weekly</h2>

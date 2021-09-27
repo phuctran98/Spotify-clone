@@ -1,10 +1,6 @@
 import React from 'react';
 import "./Hero.css"
-import PropTypes from 'prop-types';
 
-Hero.propTypes = {
-    
-};
 
 function Hero(props) {
     return (

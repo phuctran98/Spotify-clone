@@ -1,16 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import "./SpotifyApp.scss"
-import PropTypes from 'prop-types';
+import styles from '../../components/Footer/Footer.scss'
 import axios from 'axios';
-import { useDispatch ,useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import SideBar from '../../components/SideBar';
 import Body from '../../components/Body';
 import Footer from '../../components/Footer';
 import useGetParams from '../../Hooks/useGetParams';
 import { playListLoading } from './userPlaylistSlice';
-SpotifyApp.propTypes = {
-    
-};
+
+
 const LIST_PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/me/playlists";
 const SONG_OF_PLAYLISTS_ENDPOINT = "https://api.spotify.com/v1/playlists";
 
@@ -23,25 +22,32 @@ function SpotifyApp(props) {
     const [isPlaying,setIsPlaying] = useState(true)
     const [duration,setDuration] = useState(0)
     const [currentTime,setCurrentTime] = useState(0)
+    const [audioMuted,setAudioMuted] = useState(false)
+
     const audioRef = useRef()
+    const progressBar = useRef()
+    const progressBarVolume = useRef()
+    const animationRef = useRef()
+
 
     const dispatch = useDispatch()
     const [token,setToken] = useState("")
+
     const url = window.location.hash
     const {access_token,expires_in,token_type} = useGetParams(url)
-    // console.log("listsong",songsOfPlayList)
+    // console.log("currentSong",currentSong)
+    // console.log("idPlayList",idPlayList)
     useEffect(()=>{
-        if(url){
-            // const {object} = getReturnedParamsFromSpotifyAuth(window.location.hash)
-            // const {access_token,expires_in,token_type} = useGetParams(window.location.hash)
-            // console.log({access_token})
-            localStorage.clear()
-            localStorage.setItem('accessToken',access_token)
-            localStorage.setItem('tokenType',token_type)
-            localStorage.setItem('expiresIn',expires_in)
-        }},[url]
-    )
-    //get list playlist
+        function handleToken(){
+            if(url){
+                localStorage.clear()
+                localStorage.setItem('accessToken',access_token)
+                localStorage.setItem('tokenType',token_type)
+                localStorage.setItem('expiresIn',expires_in)
+            }}
+        handleToken()
+    },[access_token,token_type,expires_in,url])
+    //get list playlist 
     useEffect(()=>{
         if(localStorage.getItem('accessToken')){
             setToken(localStorage.getItem('accessToken'))
@@ -53,7 +59,6 @@ function SpotifyApp(props) {
                   }
             }).then(response=>{
                 // console.log("list play list ",response.data)
-                // setData(response.data)
                 const action = playListLoading(response.data)
                 // console.log("data",data)
                 dispatch(action)
@@ -61,10 +66,10 @@ function SpotifyApp(props) {
                 console.log(err)
             })
         }
-    },[token])
+    },[token,dispatch])
     //get song of playlist
     useEffect(()=>{
-        if(idPlayList!=null){
+        if(idPlayList){
             if(localStorage.getItem('accessToken')){
                 setToken(localStorage.getItem('accessToken'))
             }
@@ -81,24 +86,56 @@ function SpotifyApp(props) {
                 })
             }
         }
-    },[idPlayList])
+    },[idPlayList,token])
     //play song
     useEffect(()=>{
         if(currentSong){
             if(isPlaying){
                 audioRef?.current.play()
+                
+                // console.log('1',audioRef.current)
+                audioRef.current.volume = 0.5
+                animationRef.current = requestAnimationFrame(whilePlaying)
             }
             else{
                 audioRef?.current.pause();
+                cancelAnimationFrame(animationRef.current)
             }
         } 
     })
+    //auto next song
+    useEffect(() => {
+        // console.log('what song',songsOfPlayList)
+        // audioRef.current.addEventListener('ended', () => {
+        //         setIsPlaying(false)
+        //         console.log('songsOfPlayList',songsOfPlayList.tracks)
+        //         // audioRef.current.pause()
+        //         // console.log('what song',songsOfPlayList)
+        //         // setCurrentSong(songsOfPlayList?.tracks?.items[indexOfSong+1].track)
+        //         // audioRef.current.load()
+        //         // setIsPlaying(true)
+        //         // audioRef.current.play()
+        // });
+            // if(audioRef.current.onended ){
+
+            // }
+          
+            // console.log('next dc')
+
+       
+        //     audioRef.current.addEventListener('ended', () => setIsPlaying(false));
+        //     console.log(' k next dc')
+        // }
+        // return () => {
+        //     audioRef.current.removeEventListener('ended', () => setIsPlaying(false));
+        // };
+      }, []);
     // choice song to play
     function choiceSong(newItem){
         setCurrentSong(newItem.track)
         setIndexOfSong(indexSong(newItem.track.id))
         // console.log("indexSong",indexSong(newItem.track.id))
-        console.log("choie song to play:",currentSong)
+        // console.log("choie song to play:",currentSong)
     }
     //change id playlist
     function changePlayList(id){
@@ -111,6 +148,7 @@ function SpotifyApp(props) {
         const index = listofSong.findIndex((item)=>item.track.id  === id)
         return index
     }
+    
     //skip song 
     const skipSong = (foward = true) =>{
         const nextSong = songsOfPlayList?.tracks
@@ -139,6 +177,37 @@ function SpotifyApp(props) {
             }
         }
     }
+    const whilePlaying = () => {
+        progressBar.current.value = audioRef.current.currentTime
+        changeProgressBarCurrentTime()
+
+        animationRef.current=requestAnimationFrame( whilePlaying)
+    }
+    //set duration
+    const changeProgressBarCurrentTime = () =>{
+        progressBar.current.style.setProperty('--seek-before-width',`${progressBar.current.value / duration * 100 }%`)
+        setCurrentTime(progressBar.current.value)
+    }
+    
+    useEffect(()=>{
+        const seconds =  Math.floor(audioRef.current.duration) 
+        setDuration(seconds)     
+        progressBar.current.max = seconds
+    },[audioRef?.current?.loadedmetadata, audioRef?.current?.readyState])
+
+    const changeRange = ()=>{
+        audioRef.current.currentTime = progressBar.current.value
+        changeProgressBarCurrentTime()
+    }
+
+    const changeRangeVolum = () =>{
+        audioRef.current.volume = progressBarVolume?.current.value
+    }
+
+    useEffect(()=>{
+        audioRef.current.muted = audioMuted
+    },[audioMuted])
+
     return (
         <div className="spotifyapp">
             <audio src={currentSong?.preview_url} ref={audioRef}></audio>
@@ -146,7 +215,13 @@ function SpotifyApp(props) {
                 <SideBar changePlayList={changePlayList}></SideBar>
                 <Body songsOfPlayList={songsOfPlayList} choiceSong={choiceSong} > </Body>
             </div>
-            <Footer isPlaying={isPlaying} setIsPlaying={setIsPlaying} duration={duration} currentTime={currentTime} currentSong={currentSong} skipSong={skipSong}></Footer>
+            <Footer isPlaying={isPlaying} setIsPlaying={setIsPlaying} duration={duration}  className={styles.footer}
+                    currentTime={currentTime} currentSong={currentSong} 
+                    skipSong={skipSong} progressBar={progressBar} progressBarVolume={progressBarVolume} changeRange={changeRange}
+                    changeRangeVolum = {changeRangeVolum} audioMuted={audioMuted} setAudioMuted={setAudioMuted}
+                    >
+
+            </Footer>
         </div>
     );
 }

@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { useState } from 'react';
 // import "./LoginForm.css"
-import { FirebaseContext } from '../../Context/FirebaseContext';
+// import { FirebaseContext } from '../../Context/FirebaseContext';
 import { useAuth } from '../../Context/AuthContext';
 import { NavLink, useHistory } from 'react-router-dom';
 import './LoginForm.scss'
-import { Link } from '@material-ui/core';
+
 
 function LoginForm(props) {
     const history = useHistory()

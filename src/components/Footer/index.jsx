@@ -1,5 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+// import PropTypes from 'prop-types';
 import './Footer.scss'
 
 import ShuffleIcon from '@material-ui/icons/Shuffle';
@@ -10,13 +10,17 @@ import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import PlaylistPlayIcon from '@material-ui/icons/PlaylistPlay';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-Footer.propTypes = {
+import VolumeOffIcon from '@material-ui/icons/VolumeOff';
+// Footer.propTypes = {
 
-};
+// };
 
 function Footer(props) {
-    const { isPlaying, setIsPlaying,duration,currentTime,currentSong,skipSong } = props
-    // console.log("song footer",currentSong)
+    const { isPlaying, setIsPlaying,duration,currentTime,currentSong,
+        skipSong,progressBar,progressBarVolume,changeRange,changeRangeVolum,
+        audioMuted, setAudioMuted
+    } = props
+    // console.log("duration footer",duration)
     const calculateTime = (secs) => {
         const minutes = Math.floor(secs/60)
         const returnMinutes = minutes < 10 ? `${minutes}` : minutes 
@@ -24,10 +28,20 @@ function Footer(props) {
         const returnSeconds = seconds < 10 ? `0${seconds}` : seconds 
         return `${returnMinutes}:${returnSeconds}`;
     }
+
+    // useEffect(() =>{
+    //     const id = setInterval(()=>{
+    //         console.log('value',progressBar?.current?.value)
+    //     },1000)
+    //     return () =>{
+    //         clearInterval(id)
+    //     }
+    // },[])
+    
     return (
         <div className="footer">
             <div className="footer__left">
-                <img className="footer__left__albumLogo"
+                <img className="footer__left__albumLogo" alt='image_song'
                     src={currentSong ? currentSong.album.images[2].url : 'https://i.scdn.co/image/ab67616d000048512f76b797c382bedcafdf45e1'}
                 />
                 <div className="footer__left__songInfo">
@@ -47,7 +61,6 @@ function Footer(props) {
                     </div>
                     <div onClick={() => setIsPlaying(!isPlaying)} className="footer__icon" >
                         {isPlaying ? <PauseCircleOutlineIcon fontSize="large"/> : <PlayCircleOutlineIcon fontSize="large" />}
-                        
                     </div>
                     <div className="footer__center__button__right">
                         <div className="footer__icon" onClick={()=>skipSong()}>
@@ -59,9 +72,9 @@ function Footer(props) {
                     </div>
                 </div>
                 <div className="footer__center__playbackBar">
-                    <div className="time">{calculateTime(currentTime)}</div>
-                    <input type="range" className="footer__center__playbackBar__progressBar"></input>
-                    <div className="time">{calculateTime(duration)}</div>
+                    <div className="time">{currentTime ? calculateTime(currentTime) : "0:00"}</div>
+                    <input type="range" className="footer__center__playbackBar__progressBar" ref={progressBar} value={0} onChange={changeRange}></input>
+                    <div className="time">{duration ? calculateTime(duration) : "0:00"}</div>
                 </div>
             </div>
             <div className="footer__right">
@@ -70,8 +83,12 @@ function Footer(props) {
                         <PlaylistPlayIcon className="footer__icon" ></PlaylistPlayIcon>
                     </div>
                     <div className="footer__right__controllVolume">
-                        <VolumeUpIcon className="footer__icon"></VolumeUpIcon>
-                        <input type="range" className="footer__right__rangeVolume"></input>
+                        {
+                            audioMuted ? <VolumeOffIcon className="footer__icon" onClick={()=>setAudioMuted(!audioMuted)} /> 
+                                        : <VolumeUpIcon className="footer__icon" onClick={()=>setAudioMuted(!audioMuted)} />
+                        }
+                        
+                        <input type="range" className="footer__right__rangeVolume" ref={progressBarVolume} onChange={changeRangeVolum} max="1" min="0" step="0.1"></input>
                     </div>
                 </div>
             </div>
