@@ -14,23 +14,40 @@ $button-size: 16px;
         flex-direction: row;
         align-items: center;
         color: white;
-        width: 300px;
+        width: 30%;
+        min-width: 300px;
         flex: 0.3;
         &__albumLogo {
             height: 60px;
-            width: 60px;
+            min-width: 60px;
             margin-right: 20px;
             object-fit: contain;
+        }
+        &__songInfo {
+            h4 {
+                white-space: nowrap;
+                font-size: 13px;
+            }
+            .artist {
+                //Thuộc tính white-space xác định khoảng trắng có bên trong thành phần được xử lý như thế nào.
+                //nowrap:Văn bản sẽ hiển thị trên cùng một hàng, chỉ xuống hàng khi gặp thẻ <br />.
+
+                white-space: nowrap;
+                color: #b3b3b3;
+                font-size: 11px;
+                // animation:  15s infinite linear;
+                padding-left: 100%;
+            }
         }
     }
     &__center {
         display: flex;
         flex-direction: column;
         align-items: center;
+        min-width: 650px;
+       
+        width: 40%;
         justify-content: space-between;
-        flex: 0.4;
-        max-width: 100%;
-        padding: 0 100px;
         color: white;
 
         &__button {
@@ -72,8 +89,8 @@ $button-size: 16px;
                 width: 100%;
             }
             &__progressBar::before {
-                content: '';
-                height:  4px;
+                content: "";
+                height: 4px;
                 width: var(--seek-before-width);
                 background-color: #b3b3b3;
                 border-top-left-radius: 10px;
@@ -83,8 +100,8 @@ $button-size: 16px;
                 left: 0;
                 z-index: 2;
                 cursor: pointer;
-              }
-              &__progressBar::-webkit-slider-thumb {
+            }
+            &__progressBar::-webkit-slider-thumb {
                 border: none;
                 height: 26px;
                 width: 18px;
@@ -93,7 +110,7 @@ $button-size: 16px;
                 cursor: pointer;
                 -webkit-appearance: none;
                 margin-top: -8px;
-              }
+            }
             .time {
                 color: #b3b3b3;
                 padding: 0px 20px 0px 20px;
@@ -102,10 +119,14 @@ $button-size: 16px;
     }
     &__right {
         display: flex;
-        // justify-items: center;
         align-items: center;
-        margin-right: 50px;
-        // max-width: 100%;
+        margin-right: 30px;
+        justify-content: end;
+        left: 0;
+        float:right;
+        width: 30%;
+        min-width: 300px;
+        max-width: 320px;
         color: white;
         // flex: 0.3;
         &__all {

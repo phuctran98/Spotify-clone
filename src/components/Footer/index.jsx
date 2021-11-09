@@ -18,7 +18,7 @@ import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 function Footer(props) {
     const { isPlaying, setIsPlaying,duration,currentTime,currentSong,
         skipSong,progressBar,progressBarVolume,changeRange,changeRangeVolum,
-        audioMuted, setAudioMuted
+        audioMuted, setAudioMuted, imgAlbum
     } = props
     // console.log("duration footer",duration)
     const calculateTime = (secs) => {
@@ -42,11 +42,11 @@ function Footer(props) {
         <div className="footer">
             <div className="footer__left">
                 <img className="footer__left__albumLogo" alt='image_song'
-                    src={currentSong ? currentSong.album.images[2].url : 'https://i.scdn.co/image/ab67616d000048512f76b797c382bedcafdf45e1'}
+                    src={currentSong.album ? currentSong.album.images[2].url : imgAlbum}
                 />
                 <div className="footer__left__songInfo">
                     <h4>{currentSong ? currentSong?.name : "Prefect"}</h4>
-                    <p>{currentSong ? currentSong?.artists[0].name : "Edsheeran"}</p>
+                    <p className='artist'>{currentSong ? currentSong?.artists[0].name : "Edsheeran"}</p>
                 </div>
             </div>
             <div className="footer__center">
