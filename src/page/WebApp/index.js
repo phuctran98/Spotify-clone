@@ -5,7 +5,7 @@ const CLIENT_ID = "5e1dec94c0734988b3a1413d8fbd687b"
 const SPOTIFY_AUTHORIZE_ENDPOINT = "https://accounts.spotify.com/authorize"
 const REDIRECT_URL_AFTER_LOGIN = "http://localhost:3000/spotify"
 const SPACE_DELIMITER = "%20"
-const SCOPES = ["user-read-currently-playing","user-read-playback-state","playlist-read-private"]
+const SCOPES = ["user-read-currently-playing","user-read-playback-state","playlist-read-private","user-read-private","user-read-email"]
 const SCOPES_URL_PARAM = SCOPES.join(SPACE_DELIMITER)
 
 const getReturnedParamsFromSpotifyAuth = (hash) =>{

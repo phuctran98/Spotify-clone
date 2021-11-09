@@ -1,32 +1,23 @@
-.body {
-    padding: 30px;
+.search {
     width: 100%;
     margin-bottom: 100px;
     overflow-y: scroll;
     color: white;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 1));
-    background-color: rgb(91, 87, 115);
+    background: #121212;
+    // background-color: rgb(91, 87, 115);
 
-    &__info {
-        display: flex;
-        align-items: flex-end;
-        padding: 10px;
-
-        img {
-            // contain: ;
-            height: 18vw;
-            margin: 0 20px;
-            box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
-        }
-    }
     &__infoText {
         h2 {
             font-size: 48px;
             margin-bottom: 10px;
         }
+        &__type{
+            color: red;
+        }
         p {
             font-size: 14px;
         }
+       
     }
     &__icons {
         display: flex;

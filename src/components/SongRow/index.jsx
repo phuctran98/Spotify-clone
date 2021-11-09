@@ -3,18 +3,26 @@ import './SongRow.scss'
 
 function RowSong(props) {
     const {item,choiceSong} = props
-    // console.log("rowsong",item)
     const handleChoieSong = (item) => {
         // console.log("rowItem",item)
-        choiceSong(item)
+        if(item.track){
+            choiceSong(item.track,1)
+        }
+        else{
+            choiceSong(item,2)
+        }
+        
     }
     return (
         <div className="rowSong" onClick={() => handleChoieSong(item)}>
-            <img className="rowSong__album" src={item.track.album.images[2].url} alt="" />
+            {
+                item.track? <img className="rowSong__album" src={ item.track.album.images[2].url } alt="" /> : ''
+            }
+            
             <div className="rowSong__info">
-                <h1>{item.track.name}</h1>
+                <h1>{item.track ? item.track.name : item.name}</h1>
                 <p>
-                    {item.track.artists[0].name}
+                    {item.track ? item.track.artists[0].name : item.artists[0].name}
                 </p>
             </div>
         </div>

@@ -11,6 +11,7 @@ import PrivateRoute from './components/PrivateRoute';
 import WebApp from './page/WebApp';
 import { useAuth } from './Context/AuthContext';
 import SpotifyApp from './page/SpotifyApp';
+import Search from './components/Search';
 
 
 function App() {
@@ -31,12 +32,13 @@ function App() {
           {/* <PrivateRoute path="/" exact>
             <SpotifyApp></SpotifyApp>
           </PrivateRoute> */}
-          <Route path="/"exact >
+          <Route path="/" exact >
             <LoginForm></LoginForm>
           </Route>
           <Route path="/spotify">
             <SpotifyApp></SpotifyApp>
           </Route>
+          
         </Switch>
 
       </Router>

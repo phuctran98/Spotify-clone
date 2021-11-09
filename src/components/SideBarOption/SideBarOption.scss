@@ -5,10 +5,17 @@
     cursor: pointer;
     align-items: center;
     transition: 200ms color ease-in;
-    margin-bottom: 1rem;
+    margin-bottom: 12px;
+
+    min-height: 24px;
+    // overflow: hidden;
+
     &__icon {
         padding-left: 10px;
         padding-right: 10px;
+    }
+    h4{
+        text-decoration: none;
     }
 }
 .sidebarOption:hover {

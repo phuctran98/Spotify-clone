@@ -1,0 +1,45 @@
+.main {
+    box-sizing: border-box;
+    width: 100%;
+    background: #121212;
+    color: white;
+    overflow-y: scroll;
+    margin-bottom: 65px;
+    &__body {
+        padding: 25px;
+        &__listalbum {
+            display: flex;
+            margin-top: 20px;
+        }
+        .itemalbum {
+            display: flex;
+            flex-direction: column;
+            min-width: 165px;
+            padding: 16px;
+            border-radius: 5px;
+            background: #181818;
+            margin-right: 20px;
+            margin-bottom: 30px;
+            &__text {
+                margin-top: 10px;
+
+                &__description {
+                    margin-top: 5px;
+                    color: rgb(179, 179, 179);
+                    font-size: 14px;
+                    font-weight: 400;
+                    letter-spacing: normal;
+                    line-height: 16px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 2; /* number of lines to show */
+                    -webkit-box-orient: vertical;
+                }
+            }
+        }
+        .itemalbum:hover {
+            background: #282828;
+        }
+    }
+}
